@@ -4,7 +4,8 @@
   "description": "React tutorial from https://learn.tylermcginnis.com/courses/50507",
   "main": "index.js",
   "scripts": {
-    "create": "webpack"
+    "start": "webpack-dev-server --open",
+	"create": "webpack"
   },
   "babel": {
     "presets": [
