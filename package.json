@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
-	"create": "webpack"
+    "create": "webpack"
   },
   "babel": {
     "presets": [
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/chelseydenton/github-battle#readme",
   "dependencies": {
+    "axios": "^0.17.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0"
   },
