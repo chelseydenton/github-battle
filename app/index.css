@@ -10,9 +10,27 @@ li {
 	list-style-type: none;
 }
 
+.active {
+	font-weight: bold;
+}
+
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
+}
+
+.route-links {
+	display: flex;
+}
+
+.route-links li{
+	margin: 10px;
+	cursor: pointer;
+}
+
+.route-links li a{
+	color: #d0021b;
+	text-decoration: none;
 }
 
 .languages {
