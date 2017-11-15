@@ -2,17 +2,48 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var api = require('../utils/api');
 
-function PlayerInput(props){
-	return (
-		<div className='playerInput-component'>
-			<h1>{props.label}</h1>
-			<input id='input'></input>
-			<div className='button' 
-			onClick={props.onSubmit.bind(null, 'chelseydenton', props.id)}>
-				Submit
-			</div>
-		</div>
-	)
+class PlayerInput extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			userName: ''
+		};
+		
+		this.UpdateUserName = this.UpdateUserName.bind(this);
+		this.Submit = this.Submit.bind(this);
+	}
+	
+	UpdateUserName(event){
+		var value = event.target.value;
+		this.setState(function(){
+			return { userName: value };
+		});
+	}
+	
+	Submit(event) {
+		event.preventDefault();
+		this.props.onSubmit(this.state.userName, this.props.id)
+	}
+	
+	render(){
+		return (
+			<form className='column' onSubmit={this.Submit}>
+				<label className='header' htmlFor='input'>
+					{this.props.label}
+				</label>
+				<input id='input'
+					placeholder='github username'
+					type='text'
+					autoComplete='off'
+					value={this.state.userName}
+					onChange={this.UpdateUserName}
+				/>
+				<button className='button' type='submit' disabled={!this.state.userName}>
+					Submit
+				</button>
+			</form>
+		)
+	}
 }
 PlayerInput.propTypes = {
 	id: PropTypes.string.isRequired,
@@ -64,8 +95,6 @@ class Battle extends React.Component {
 		this.setState(function(){
 			return newState;
 		});
-		
-		console.log(this.state);
 	}	
 	
 	render () {
