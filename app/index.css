@@ -103,6 +103,19 @@ li {
 	align-items: center;
 }
 
+.reset-button {
+	color: #d0021b;
+	border: none;
+	background: transparent;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+.reset-button:hover {
+	cursor: pointer;	
+}
+
 .button {
 	color: #e6e6e6;
 	background: #0a0a0a;

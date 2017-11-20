@@ -1,6 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 var api = require('../utils/api');
+var Link = require('react-router-dom').Link;
 
 class PlayerInput extends React.Component {
 	constructor(props){
@@ -53,15 +54,24 @@ PlayerInput.propTypes = {
 
 function PlayerDisplay(props){
 	return (
-		<div className='playerDisplay-component'>
-			<h1>{props.userName}</h1>
-			<img src={props.imageSrc} alt={props.userName}/>
+		<div>
+			<div className='column'>
+				<img
+					className='avatar'
+					src={props.imageSrc}
+					alt={'Avatar for ' + props.userName}
+				/>			
+				<h2 className='userName'>@{props.userName}</h2>
+			</div>
+			<div className='reset-button' onClick={props.onSubmit.bind(null, '', props.id)}>Reset</div>
 		</div>
 	)
 }
 PlayerDisplay.propTypes = {
 	userName: PropTypes.string.isRequired,
 	imageSrc: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+	onSubmit: PropTypes.func.isRequired
 }
 
 class Battle extends React.Component {
@@ -95,9 +105,11 @@ class Battle extends React.Component {
 		this.setState(function(){
 			return newState;
 		});
-	}	
+	}
 	
 	render () {
+		var match = this.props.match;
+		
 		return (
 			<div>
 				<div className='row'>
@@ -106,6 +118,8 @@ class Battle extends React.Component {
 					<PlayerDisplay
 						userName={this.state.playerOne}
 						imageSrc={this.state.playerOneImage}
+						id='playerOne'
+						onSubmit={this.SubmitPlayer}
 					/>
 					) :
 					(
@@ -121,6 +135,8 @@ class Battle extends React.Component {
 					<PlayerDisplay
 						userName={this.state.playerTwo}
 						imageSrc={this.state.playerTwoImage}
+						id='playerTwo' 
+						onSubmit={this.SubmitPlayer}
 					/>
 					) :
 					(
@@ -133,11 +149,14 @@ class Battle extends React.Component {
 				</div>
 				<div>				
 				{
-					this.state.playerOne && this.state.playerTwo ?
-					(<div className='button'>
+					this.state.playerOne && this.state.playerTwo &&
+					<Link className='button'
+						to={{ 
+							pathname: match.url + '/results',
+							search: '?playerOne=' + this.state.playerTwo + '&playerTwo=' + this.state.playerTwo
+						}}>
 						Battle
-					</div>)
-					: null
+					</Link>
 				}
 				</div>
 			</div>
