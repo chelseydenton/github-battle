@@ -49,8 +49,8 @@ function getUserData(userName){
 	});
 }
 
-function sortPlayers(player){
-	return player.sort(function(a,b){
+function sortPlayers(players){
+	return players.sort(function(a,b){
 		return b.score - a.score;
 	});
 }

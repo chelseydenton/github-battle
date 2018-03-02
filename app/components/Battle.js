@@ -1,6 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 var api = require('../utils/api');
+var PlayerAvatar = require('./PlayerAvatar');
 var Link = require('react-router-dom').Link;
 
 class PlayerInput extends React.Component {
@@ -52,28 +53,6 @@ PlayerInput.propTypes = {
 	onSubmit: PropTypes.func.isRequired
 }
 
-function PlayerDisplay(props){
-	return (
-		<div>
-			<div className='column'>
-				<img
-					className='avatar'
-					src={props.imageSrc}
-					alt={'Avatar for ' + props.userName}
-				/>			
-				<h2 className='userName'>@{props.userName}</h2>
-			</div>
-			<div className='reset-button' onClick={props.onSubmit.bind(null, '', props.id)}>Reset</div>
-		</div>
-	)
-}
-PlayerDisplay.propTypes = {
-	userName: PropTypes.string.isRequired,
-	imageSrc: PropTypes.string.isRequired,
-	id: PropTypes.string.isRequired,
-	onSubmit: PropTypes.func.isRequired
-}
-
 class Battle extends React.Component {
 	constructor(props){
 		super(props);
@@ -115,12 +94,11 @@ class Battle extends React.Component {
 				<div className='row'>
 				{this.state.playerOne ?
 					(
-					<PlayerDisplay
+					<PlayerAvatar
 						userName={this.state.playerOne}
-						imageSrc={this.state.playerOneImage}
-						id='playerOne'
-						onSubmit={this.SubmitPlayer}
-					/>
+						imageSrc={this.state.playerOneImage}>
+						<button className='reset-button' onClick={this.SubmitPlayer.bind(null, '', 'playerOne')}>Reset</button>
+					</PlayerAvatar>
 					) :
 					(
 					<PlayerInput 
@@ -132,12 +110,11 @@ class Battle extends React.Component {
 				{
 					this.state.playerTwo ?
 					(
-					<PlayerDisplay
+					<PlayerAvatar
 						userName={this.state.playerTwo}
-						imageSrc={this.state.playerTwoImage}
-						id='playerTwo' 
-						onSubmit={this.SubmitPlayer}
-					/>
+						imageSrc={this.state.playerTwoImage}>
+						<button className='reset-button' onClick={this.SubmitPlayer.bind(null, '', 'playerTwo')}>Reset</button>
+					</PlayerAvatar>
 					) :
 					(
 					<PlayerInput 
